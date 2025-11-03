@@ -159,10 +159,10 @@ def make_the_alignments(mols, ref_dir, p):
 def main():
     script_dir = os.getcwd()
     par_dir = os.path.dirname(script_dir)
-
+    sdf_file = os.path.join(par_dir, "data/toy_indoles.sdf")
     parser = argparse.ArgumentParser(description="Indole aligner: input unaligned indoles SDF -> aligned indoles SDF")
     parser.add_argument("--sdf", type=str,
-                    help="Path to input SDF file that contains un-aligned indoles")
+                    help="Path to input SDF file that contains un-aligned indoles", default = sdf_file)
     args = parser.parse_args()
 
     if args.sdf:
@@ -179,7 +179,7 @@ def main():
         ref_sdf = Chem.SDMolSupplier(os.path.join(par_dir, "data/processed/references.sdf"))
         ref = [m for m in ref_sdf]
         make_the_alignments(mols, ref, get_indole())
-        newname = args.sdf[:-4] +"_aligned.SDF"
+        newname = args.sdf[:-4] +"_aligned.sdf"
         writer = Chem.SDWriter(newname)
         for m in mols:
            writer.write(m)

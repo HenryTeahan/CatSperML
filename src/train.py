@@ -13,7 +13,7 @@ import numpy as np
 def main():
     script_dir = os.getcwd()
     par_dir = os.path.dirname(script_dir)
-    sdf_path = os.path.join(par_dir, "data/processed/Training_molecules.sdf")
+    sdf_path = os.path.join(par_dir, "data/toy_indoles_aligned.sdf")
     ref_dir = os.path.join(par_dir, "data/processed/references.sdf")
     parser = argparse.ArgumentParser(description="Please input your desired parameters for the descriptor generation!")
     parser.add_argument("--eps", type=float, default=0.5, help="DBSCAN epsilon value")
@@ -78,14 +78,14 @@ def main():
 
     out_dir = os.path.join(par_dir, "results", "Images")
     os.makedirs(out_dir, exist_ok=True)
-
+    # TODO: Test this draw functionality still works..
     if args.save_img:
         fig.savefig(os.path.join(out_dir, f"centroid_map.png"))
         for i, (mol, X) in enumerate(zip(mols_train, X_train)):
             img = visualize(
                 final_tree, X, mol, centroids,
-                eps=0.45, allow_dis=2,
-                draw=True, tex=f"mol {i+1} - ic50 {ic50s_con[i]}", textanot=True, tex_pos=Point2D(0,2)
+                eps=args.eps, allow_dis=args.allow_dis,
+                tex=f"mol {i+1} - ic50 {ic50s_con[i]}", textanot=True, tex_pos=Point2D(0,2)
             )
             out_path = os.path.join(out_dir, f"result_{i+1:03}.png")
             img.save(out_path)
