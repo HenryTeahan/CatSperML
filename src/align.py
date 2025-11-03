@@ -159,15 +159,18 @@ def make_the_alignments(mols, ref_dir, p):
 def main():
     script_dir = os.getcwd()
     par_dir = os.path.dirname(script_dir)
-    sdf_file = os.path.join(par_dir, "data/toy_indoles.sdf")
+    sdft_file = os.path.join(par_dir, "data/toy_indoles.sdf")
+    sdfs_file = os.path.join(par_dir, "data/screening/HIT_locator.sdf")
     parser = argparse.ArgumentParser(description="Indole aligner: input unaligned indoles SDF -> aligned indoles SDF")
-    parser.add_argument("--sdf", type=str,
-                    help="Path to input SDF file that contains un-aligned indoles", default = sdf_file)
+    parser.add_argument("--sdf_t", type=str,
+                    help="Path to input training SDF file that contains un-aligned indoles", default = sdft_file)
+    parser.add_argument("--sdf_s", type=str,
+                help="Path to input screening SDF file that contains un-aligned indoles", default = sdfs_file)
     args = parser.parse_args()
 
-    if args.sdf:
+    if args.sdft:
         try:
-            reader = Chem.SDMolSupplier(args.sdf)
+            reader = Chem.SDMolSupplier(args.sdft)
         except:
             raise ValueError("Not a proper SDF or directory")
         
@@ -179,14 +182,35 @@ def main():
         ref_sdf = Chem.SDMolSupplier(os.path.join(par_dir, "data/processed/references.sdf"))
         ref = [m for m in ref_sdf]
         make_the_alignments(mols, ref, get_indole())
-        newname = args.sdf[:-4] +"_aligned.sdf"
+        newname = args.sdft[:-4] +"_aligned.sdf"
         writer = Chem.SDWriter(newname)
         for m in mols:
            writer.write(m)
         writer.close()
         print("saved aligned indoles to", newname)
     else:
-        raise ValueError("No input")
-    
+       print("No input training sds")
+    if args.sdfs:
+        try:
+            reader = Chem.SDMolSupplier(args.sdfs)
+        except:
+            raise ValueError("Not a proper SDF or directory")
+        
+        mols = [m for m in reader]
+        print(f"loaded {len(mols)} molecules")
+        print(get_indole())
+        mols = [m for m in mols if m.HasSubstructMatch(get_indole())]
+        print(f"... of which {len(mols)} indoles")
+        ref_sdf = Chem.SDMolSupplier(os.path.join(par_dir, "data/processed/references.sdf"))
+        ref = [m for m in ref_sdf]
+        make_the_alignments(mols, ref, get_indole())
+        newname = args.sdfs[:-4] +"_aligned.sdf"
+        writer = Chem.SDWriter(newname)
+        for m in mols:
+           writer.write(m)
+        writer.close()
+        print("saved aligned indoles to", newname)
+    else: 
+        print("No input screening sds")
 if __name__ == "__main__":
     main()
