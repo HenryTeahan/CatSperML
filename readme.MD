@@ -64,6 +64,7 @@ python train.py --sdf "path_to_toy_indoles_file_aligned.sdf" --load_opt_params
 ```
 **Note:** You must include `--load_opt_params` if you want to use the optimized hyperparameters from step 2. The default .sdf file is toy_indoles_aligned.sdf.
 
+If you want to see the training molecules with their explainable 2D maps and decision points, as well as the decision tree and centroid map, then add `--save_img` to the command. This saves the images in the results folder.
 
 4. **Screen the library**
 ```bash
