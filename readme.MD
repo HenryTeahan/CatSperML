@@ -6,7 +6,7 @@ git clone https://github.com/HenryTeahan/CatSperML
 # Environment Setup
 Change directory to the CatSperML folder structure:
 ```bash
-cd ~/CatSperML
+cd CatSperML
 ```
 Install the required dependencies.  
 You can set up the environment using **Conda**.

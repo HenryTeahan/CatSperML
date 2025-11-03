@@ -159,18 +159,18 @@ def make_the_alignments(mols, ref_dir, p):
 def main():
     script_dir = os.getcwd()
     par_dir = os.path.dirname(script_dir)
-    sdft_file = os.path.join(par_dir, "data/toy_indoles.sdf")
-    sdfs_file = os.path.join(par_dir, "data/screening/HIT_locator.sdf")
+    sdf_t_file = os.path.join(par_dir, "data/toy_indoles.sdf")
+    sdf_s_file = os.path.join(par_dir, "data/screening/HIT_locator.sdf")
     parser = argparse.ArgumentParser(description="Indole aligner: input unaligned indoles SDF -> aligned indoles SDF")
     parser.add_argument("--sdf_t", type=str,
-                    help="Path to input training SDF file that contains un-aligned indoles", default = sdft_file)
+                    help="Path to input training SDF file that contains un-aligned indoles", default = sdf_t_file)
     parser.add_argument("--sdf_s", type=str,
-                help="Path to input screening SDF file that contains un-aligned indoles", default = sdfs_file)
+                help="Path to input screening SDF file that contains un-aligned indoles", default = sdf_s_file)
     args = parser.parse_args()
 
-    if args.sdft:
+    if args.sdf_t:
         try:
-            reader = Chem.SDMolSupplier(args.sdft)
+            reader = Chem.SDMolSupplier(args.sdf_t)
         except:
             raise ValueError("Not a proper SDF or directory")
         
@@ -182,7 +182,7 @@ def main():
         ref_sdf = Chem.SDMolSupplier(os.path.join(par_dir, "data/processed/references.sdf"))
         ref = [m for m in ref_sdf]
         make_the_alignments(mols, ref, get_indole())
-        newname = args.sdft[:-4] +"_aligned.sdf"
+        newname = args.sdf_t[:-4] +"_aligned.sdf"
         writer = Chem.SDWriter(newname)
         for m in mols:
            writer.write(m)
@@ -190,9 +190,9 @@ def main():
         print("saved aligned indoles to", newname)
     else:
        print("No input training sds")
-    if args.sdfs:
+    if args.sdf_s:
         try:
-            reader = Chem.SDMolSupplier(args.sdfs)
+            reader = Chem.SDMolSupplier(args.sdf_s)
         except:
             raise ValueError("Not a proper SDF or directory")
         
@@ -204,7 +204,7 @@ def main():
         ref_sdf = Chem.SDMolSupplier(os.path.join(par_dir, "data/processed/references.sdf"))
         ref = [m for m in ref_sdf]
         make_the_alignments(mols, ref, get_indole())
-        newname = args.sdfs[:-4] +"_aligned.sdf"
+        newname = args.sdf_s[:-4] +"_aligned.sdf"
         writer = Chem.SDWriter(newname)
         for m in mols:
            writer.write(m)
