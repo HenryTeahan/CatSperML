@@ -1,0 +1,49 @@
+.
+├── data
+│   ├── loader.py
+│   ├── processed
+│   │   └── references.sdf
+│   ├── random_indoles.ipynb
+│   ├── screening
+│   │   ├── HIT_locator_aligned.sdf
+│   │   └── HIT_locator.sdf
+│   ├── toy_indoles_aligned.sdf
+│   └── toy_indoles.sdf
+├── environment.yml
+├── .gitignore
+├── readme.MD
+├── repo.tree
+├── requirements.txt
+├── results
+│   ├── figures
+│   │   └── decision_tree.png
+│   ├── Images
+│   ├── models
+│   │   ├── model_files
+│   │   │   ├── centroids.npy
+│   │   │   ├── decision_tree.pkl
+│   │   │   └── X_train_old.npy
+│   │   └── params.yaml
+│   └── screening
+│       ├── processing_hits.ipynb
+│       └── screening_files
+│           ├── hits.sdf
+│           ├── screen.sdf
+│           ├── train.sdf
+│           ├── X_hits.npy
+│           ├── X_screen.npy
+│           └── X_train.npy
+└── src
+    ├── align.py
+    ├── descriptors.py
+    ├── evaluation.py
+    ├── __init__.py
+    ├── leave-one-out.py
+    ├── loader.py
+    ├── models.py
+    ├── optimization.py
+    ├── parameter_optimization.py
+    ├── screen.py
+    └── train.py
+
+12 directories, 35 files

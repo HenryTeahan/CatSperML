@@ -1,0 +1,34 @@
+# Logs
+logs
+*.log
+
+# Dependency directories
+node_modules/
+
+# Build output
+results/models/model_files/*
+!results/models/model_files/.gitkeep
+
+results/screening/screening_files/*
+!results/screening/screening_files/.gitkeep
+
+results/Images/*
+!results/Images/.gitkeep
+
+results/figures/*
+!results/figures/.gitkeep
+
+
+
+# Environment variables
+.env
+
+# IDE files
+.vscode/
+.idea/
+
+# Cache # Python cache
+__pycache__/
+*.pyc
+*.pyo
+
