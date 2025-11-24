@@ -12,7 +12,7 @@ def main():
     script_dir = os.getcwd()
     par_dir = os.path.dirname(script_dir)
     sdf_path = os.path.join(par_dir, "data/toy_indoles_aligned.sdf")
-    sdf_screen_path = os.path.join(par_dir, "data/screening/HIT_locator.sdf")
+    sdf_screen_path = os.path.join(par_dir, "data/screening/HIT_locator_aligned.sdf")
     
     parser = argparse.ArgumentParser(description="Please input your desired parameters for the descriptor generation!")
     #parser.add_argument("--eps", type=float, default=0.5, help="DBSCAN epsilon value")
